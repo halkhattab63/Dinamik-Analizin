@@ -7,13 +7,12 @@ def train_knn(X_train, y_train, n_neighbors=5, metric='minkowski', p=2):
     classifier = KNeighborsClassifier(n_neighbors=n_neighbors, metric=metric, p=p)
     classifier.fit(X_train, y_train)
     return classifier
-
 def evaluate_model(classifier, X_test, y_test, y_binned):
     y_pred = classifier.predict(X_test)
 
     cm = confusion_matrix(y_test, y_pred)
     accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred, average='weighted')
+    precision = precision_score(y_test, y_pred, average='weighted', zero_division=0)  # حل التحذير
     recall = recall_score(y_test, y_pred, average='weighted')
     f1 = f1_score(y_test, y_pred, average='weighted')
 
